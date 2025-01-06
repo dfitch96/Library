@@ -1,0 +1,21 @@
+
+html,
+body{
+    margin: 0;
+    box-sizing: border-box;
+    font-family:'Times New Roman', Times, serif
+}
+
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(9, 112, 52);
+}
+
+.header > img{
+    height: 3rem;
+    width: auto;
+    margin: 15px;
+}
