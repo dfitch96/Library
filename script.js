@@ -17,10 +17,10 @@ dialog.addEventListener("close", (e) =>{
     console.log(dialog.returnValue);
 
     if(dialog.returnValue === 'add'){
-        const title = document.querySelector("#title").value;
-        const author = document.querySelector("#author").value;
-        const pageCount = document.querySelector("#page-count").value;
-        const isRead = document.querySelector("#is-read").checked;
+        const title = form.querySelector("#title").value;
+        const author = form.querySelector("#author").value;
+        const pageCount = form.querySelector("#page-count").value;
+        const isRead = form.querySelector("#is-read").checked;
 
         addBookToLibrary(author, title, pageCount, isRead);
         clearBooks();
@@ -54,8 +54,6 @@ function Book(author, title, pages, isRead){
         } else{
             return bookInfo + 'is not read';
         }
-
-        
     }
 }
 
