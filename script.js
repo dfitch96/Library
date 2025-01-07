@@ -104,9 +104,9 @@ function createBookDiv(property, i){
     if(property !== 'isRead'){
         textDiv.textContent = `${property.charAt(0).toUpperCase() + property.slice(1)}: ${myLibrary[i][property]}`;
     } else if(myLibrary[i][property] === true){
-        textDiv.textContent = "Read"
+        textDiv.textContent = "Status: Read"
     } else{
-        textDiv.textContent = "Not Read";
+        textDiv.textContent = "Status: Not Read";
     }
     return textDiv;
 
