@@ -4,14 +4,38 @@ const myLibrary = [];
 const addButton = document.querySelector("#add-button");
 const closeButton = document.querySelector(".close-button");
 const dialog = document.querySelector("dialog");
-
+const dialogAddButton = document.querySelector(".add-button");
+const form = document.querySelector("form");
 
 addButton.addEventListener("click", () => {
     dialog.showModal();
 });
 
-closeButton.addEventListener("click", () => {
-    dialog.close();
+dialog.addEventListener("close", (e) =>{
+    console.log(dialog.returnValue);
+
+    if(dialog.returnValue === 'add'){
+        const title = document.querySelector("#title").value;
+        const author = document.querySelector("#author").value;
+        const pageCount = document.querySelector("#page-count").value;
+        const isRead = document.querySelector("#is-read").checked;
+
+        addBookToLibrary(author, title, pageCount, isRead);
+        clearBooks();
+        displayBooks();
+    }
+
+    form.reset();
+})
+
+dialogAddButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    dialog.close(dialogAddButton.value);
+})
+
+closeButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    dialog.close(closeButton.value);
 });
 
 function Book(author, title, pages, isRead){
@@ -39,6 +63,7 @@ function addBookToLibrary(author, title, pages, isRead){
     let newBook = new Book(author, title, pages, isRead);
     myLibrary.push(newBook);
 
+    console.log("Book Added " + newBook.info());
 }
 
 function clearBooks(){
@@ -72,9 +97,9 @@ function displayBooks(){
 
 
 addBookToLibrary("J.R.R Tolkien", "The Hobbit", 295, true);
-addBookToLibrary("J.R.R Tolkien", "The Followship of the Ring", 395, true);
+addBookToLibrary("J.R.R Tolkien", "The Fellowship of the Ring", 395, true);
 addBookToLibrary("J.R.R Tolkien", "The Two Towers", 395, true);
-addBookToLibrary("J.R.R Tolkien", "The Two Towers", 395, true);
+
 
 for(let i = 0; i < myLibrary.length; i++){
     console.log(myLibrary[i].info());
