@@ -89,10 +89,10 @@ function createBookCard(i){
         }
     }
 
-    const readButton = createButton("Read");
+    const readButton = createReadButton();
     newBook.appendChild(readButton);
 
-    const deleteButton = createButton("Delete");
+    const deleteButton = createDeleteButton();
     newBook.appendChild(deleteButton);
     return newBook;
 }
@@ -110,6 +110,46 @@ function createBookDiv(property, i){
     }
     return textDiv;
 
+}
+
+
+function createDeleteButton(){
+
+    const newButton = createButton("Delete");
+    newButton.addEventListener("click", (e) => {
+    
+        let index = getIndexNumber(e);
+        removeIndexFromLibrary(index);
+        clearBooks();
+        displayBooks();
+    });
+
+    return newButton;
+}
+
+function createReadButton(){
+    const newButton = createButton("Read");
+    newButton.addEventListener("click", (e) => {
+    
+        let index = getIndexNumber(e);
+        myLibrary[index].isRead = !myLibrary[index].isRead;
+        clearBooks();
+        displayBooks();
+    });
+
+    return newButton;
+}
+
+function removeIndexFromLibrary(index){
+    myLibrary.splice(index, 1);
+}
+
+
+function getIndexNumber(e){
+    let parent = e.target.parentElement;
+    if(parent){
+        return parent.dataset.indexNumber;
+    }
 }
 
 function createButton(buttonType){
