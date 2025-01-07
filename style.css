@@ -44,6 +44,12 @@ body{
     border: 10px solid black;
 }
 
+.book-button{
+    height: auto;
+    width: 4rem;
+    margin-right: 5px;
+}
+
 .book > div{
     margin: 5px;
 }

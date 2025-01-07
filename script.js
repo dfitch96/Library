@@ -73,9 +73,34 @@ function clearBooks(){
     }
 }
 
+
+
+function createBookCard(i){
+
+    const newBook = document.createElement("div");
+    newBook.setAttribute("class", "book");
+    newBook.setAttribute("data-index-number", i);
+    for(const property in myLibrary[i]){
+
+        if(myLibrary[i].hasOwnProperty(property) && typeof myLibrary[i][property] !== "function"){
+
+            let textDiv = createBookDiv(property, i);
+            newBook.appendChild(textDiv);
+        }
+    }
+
+    const readButton = createButton("Read");
+    newBook.appendChild(readButton);
+
+    const deleteButton = createButton("Delete");
+    newBook.appendChild(deleteButton);
+    return newBook;
+}
+
 function createBookDiv(property, i){
 
     let textDiv = document.createElement("div");
+    
     if(property !== 'isRead'){
         textDiv.textContent = `${property.charAt(0).toUpperCase() + property.slice(1)}: ${myLibrary[i][property]}`;
     } else if(myLibrary[i][property] === true){
@@ -87,24 +112,22 @@ function createBookDiv(property, i){
 
 }
 
+function createButton(buttonType){
+    const newButton = document.createElement("button");
+    newButton.textContent = buttonType;
+    newButton.setAttribute("class", "book-button");
+    return newButton;
+}
+
+
 function displayBooks(){
 
     const booksContainer = document.querySelector(".books");
     for(let i = 0; i < myLibrary.length; i++){
         
-        const newBook = document.createElement("div");
-        newBook.setAttribute("class", "book");
-
-        for(const property in myLibrary[i]){
-
-            if(myLibrary[i].hasOwnProperty(property) && typeof myLibrary[i][property] !== "function"){
-
-                let textDiv = createBookDiv(property, i);
-                newBook.appendChild(textDiv);
-            }
-        }
-        
+        let newBook = createBookCard(i);
         booksContainer.appendChild(newBook);
+
     }
 }
 
