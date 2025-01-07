@@ -2,7 +2,7 @@
 
 const myLibrary = [];
 const addButton = document.querySelector("#add-button");
-const closeButton = document.querySelector("dialog > button");
+const closeButton = document.querySelector(".close-button");
 const dialog = document.querySelector("dialog");
 
 

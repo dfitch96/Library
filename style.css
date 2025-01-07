@@ -58,6 +58,9 @@ form {
     align-items: center;
 }
 
+#is-read{
+    width: 10%;
+}
 
 input {
     width: 100%; 
@@ -77,3 +80,8 @@ button {
     border-radius: 10px;
 }
 
+.close-button,
+.add-button{
+    justify-self: start;
+    width: 4rem;
+}
