@@ -1,11 +1,13 @@
 
 
 const myLibrary = [];
+
 const addButton = document.querySelector("#add-button");
-const closeButton = document.querySelector(".close-button");
 const dialog = document.querySelector("dialog");
-const dialogAddButton = document.querySelector(".add-button");
-const form = document.querySelector("form");
+const form = dialog.querySelector("form");
+const dialogCloseButton = form.querySelector(".close-button");
+const dialogAddButton = form.querySelector(".add-button");
+
 
 addButton.addEventListener("click", () => {
     dialog.showModal();
@@ -33,15 +35,15 @@ dialogAddButton.addEventListener("click", (e) => {
     dialog.close(dialogAddButton.value);
 })
 
-closeButton.addEventListener("click", (e) => {
+dialogCloseButton.addEventListener("click", (e) => {
     e.preventDefault();
-    dialog.close(closeButton.value);
+    dialog.close(dialogCloseButton.value);
 });
 
 function Book(author, title, pages, isRead){
 
-    this.author = author;
     this.title = title;
+    this.author = author;
     this.pages = pages;
     this.isRead = isRead;
     this.info = function() {
@@ -73,26 +75,39 @@ function clearBooks(){
     }
 }
 
+function createBookDiv(property, i){
+
+    let textDiv = document.createElement("div");
+    if(property !== 'isRead'){
+        textDiv.textContent = `${property.charAt(0).toUpperCase() + property.slice(1)}: ${myLibrary[i][property]}`;
+    } else if(myLibrary[i][property] === true){
+        textDiv.textContent = "Read"
+    } else{
+        textDiv.textContent = "Not Read";
+    }
+    return textDiv;
+
+}
+
 function displayBooks(){
 
-    let booksContainer = document.querySelector(".books");
+    const booksContainer = document.querySelector(".books");
     for(let i = 0; i < myLibrary.length; i++){
-
-        let newBook = document.createElement("div");
+        
+        const newBook = document.createElement("div");
         newBook.setAttribute("class", "book");
 
         for(const property in myLibrary[i]){
+
             if(myLibrary[i].hasOwnProperty(property) && typeof myLibrary[i][property] !== "function"){
-                let textDiv = document.createElement("div");
-                textDiv.textContent = `${property}: ${myLibrary[i][property]}`;
+
+                let textDiv = createBookDiv(property, i);
                 newBook.appendChild(textDiv);
             }
         }
         
         booksContainer.appendChild(newBook);
     }
-
-    
 }
 
 
