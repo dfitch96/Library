@@ -1,6 +1,18 @@
 
 
 const myLibrary = [];
+const addButton = document.querySelector("#add-button");
+const closeButton = document.querySelector("dialog > button");
+const dialog = document.querySelector("dialog");
+
+
+addButton.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+closeButton.addEventListener("click", () => {
+    dialog.close();
+});
 
 function Book(author, title, pages, isRead){
 
@@ -29,11 +41,16 @@ function addBookToLibrary(author, title, pages, isRead){
 
 }
 
+function clearBooks(){
+    let booksContainer = document.querySelector(".books");
+    while(booksContainer.hasChildNodes()){
+        booksContainer.removeChild(booksContainer.firstChild);
+    }
+}
 
 function displayBooks(){
 
     let booksContainer = document.querySelector(".books");
-
     for(let i = 0; i < myLibrary.length; i++){
 
         let newBook = document.createElement("div");
@@ -50,12 +67,13 @@ function displayBooks(){
         booksContainer.appendChild(newBook);
     }
 
-
+    
 }
 
 
 addBookToLibrary("J.R.R Tolkien", "The Hobbit", 295, true);
 addBookToLibrary("J.R.R Tolkien", "The Followship of the Ring", 395, true);
+addBookToLibrary("J.R.R Tolkien", "The Two Towers", 395, true);
 addBookToLibrary("J.R.R Tolkien", "The Two Towers", 395, true);
 
 for(let i = 0; i < myLibrary.length; i++){
