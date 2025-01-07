@@ -101,8 +101,14 @@ function createBookDiv(property, i){
 
     let textDiv = document.createElement("div");
     
-    if(property !== 'isRead'){
+    if(property !== 'isRead' && property !== 'title'){
+
         textDiv.textContent = `${property.charAt(0).toUpperCase() + property.slice(1)}: ${myLibrary[i][property]}`;
+
+    } else if (property !== 'isRead' && property === 'title'){
+        let h1 = document.createElement("h2");
+        h1.textContent = `${myLibrary[i][property]}`;
+        textDiv.appendChild(h1);
     } else if(myLibrary[i][property] === true){
         textDiv.textContent = "Status: Read"
     } else{
@@ -128,7 +134,7 @@ function createDeleteButton(){
 }
 
 function createReadButton(){
-    const newButton = createButton("Read");
+    const newButton = createButton("Toggle Status");
     newButton.addEventListener("click", (e) => {
     
         let index = getIndexNumber(e);
@@ -173,13 +179,10 @@ function displayBooks(){
 
 
 addBookToLibrary("J.R.R Tolkien", "The Hobbit", 295, true);
-addBookToLibrary("J.R.R Tolkien", "The Fellowship of the Ring", 395, true);
-addBookToLibrary("J.R.R Tolkien", "The Two Towers", 395, true);
-
-
-for(let i = 0; i < myLibrary.length; i++){
-    console.log(myLibrary[i].info());
-}
+addBookToLibrary("J.R.R Tolkien", "The Fellowship of the Ring", 390, true);
+addBookToLibrary("J.R.R Tolkien", "The Two Towers", 426, true);
+addBookToLibrary("Fyodor Dostoevsky", "Crime and Punishment", 472, true);
+addBookToLibrary("Fyodor Dostoevsky", "The Brothers Karamazov", 864, false);
 
 
 displayBooks();
