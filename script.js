@@ -71,7 +71,7 @@ const ScreenController = (function(library){
         for(let i = 0; i < library.getLength(); i++){
             
             let newBook = createBookCard(i);
-           booksContainer.appendChild(newBook);
+            booksContainer.appendChild(newBook);
     
         }
     }
@@ -103,14 +103,17 @@ const ScreenController = (function(library){
     function createBookDiv(property, book){
 
         let textDiv = document.createElement("div");
-        if(property !== 'isRead' && property !== 'title'){
-    
+        if(property === 'author'){
+            let h3 = document.createElement("h4");
+            h3.textContent = `By ${book[property]}`;
+            textDiv.appendChild(h3);
+        } else if (property === 'title'){
+            let h2 = document.createElement("h2");
+            h2.textContent = `${book[property]}`;
+            textDiv.appendChild(h2);
+        } else if(property === 'pages'){
             textDiv.textContent = `${property.charAt(0).toUpperCase() + property.slice(1)}: ${book[property]}`;
-    
-        } else if (property !== 'isRead' && property === 'title'){
-            let h1 = document.createElement("h2");
-            h1.textContent = `${book[property]}`;
-            textDiv.appendChild(h1);
+        
         } else if(book[property] === true){
             textDiv.textContent = "Status: Read"
         } else{
