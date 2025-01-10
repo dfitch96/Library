@@ -31,6 +31,15 @@ class Library{
     
         console.log("Book Added " + newBook.info());
     }
+
+    toggleRead(index){
+        this.#myLibrary[index].isRead = !this.#myLibrary[index].isRead;
+    }
+
+
+    removeIndexFromLibrary(index){
+        this.#myLibrary.splice(index, 1);
+    }
     
     getLibrary(){
         return this.#myLibrary;
@@ -55,8 +64,6 @@ const ScreenController = (function(library){
     const dialogCloseButton = form.querySelector(".close-button");
     const dialogAddButton = form.querySelector(".add-button");
     const booksContainer = document.querySelector(".books");
-
-    
 
 
     function displayBooks(){
@@ -85,11 +92,11 @@ const ScreenController = (function(library){
             }
         }
     
-        // const readButton = createReadButton();
-        // newBook.appendChild(readButton);
+        const readButton = createReadButton();
+        newBook.appendChild(readButton);
     
-        // const deleteButton = createDeleteButton();
-        // newBook.appendChild(deleteButton);
+        const deleteButton = createDeleteButton();
+        newBook.appendChild(deleteButton);
         return newBook;
     }
 
@@ -121,11 +128,50 @@ const ScreenController = (function(library){
         }
     }
 
+    function createButton(buttonType){
+        const newButton = document.createElement("button");
+        newButton.textContent = buttonType;
+        newButton.setAttribute("class", "book-button");
+        return newButton;
+    }
+    
 
+    function createReadButton(){
+        const newButton = createButton("Toggle Status");
+        newButton.addEventListener("click", (e) => {
+        
+            let index = getIndexNumber(e);
+            library.toggleRead(index);
+            clearBooks();
+            displayBooks();
+        });
+    
+        return newButton;
+    }
+
+    function createDeleteButton(){
+
+        const newButton = createButton("Delete");
+        newButton.addEventListener("click", (e) => {
+        
+            let index = getIndexNumber(e);
+            library.removeIndexFromLibrary(index);
+            clearBooks();
+            displayBooks();
+        });
+    
+        return newButton;
+    }
+
+    function getIndexNumber(e){
+        let parent = e.target.parentElement;
+        if(parent){
+            return parent.dataset.indexNumber;
+        }
+    }
 
 
     /* EVENT LISTENERS */
-    
     window.addEventListener("load", () => {
         library.addBookToLibrary("J.R.R Tolkien", "The Hobbit", 295, true);
         library.addBookToLibrary("J.R.R Tolkien", "The Fellowship of the Ring", 390, true);
@@ -169,63 +215,3 @@ const ScreenController = (function(library){
     
 
 })(new Library());
-
-
-
-
-
-
-
-
-
-
-// function createDeleteButton(){
-
-//     const newButton = createButton("Delete");
-//     newButton.addEventListener("click", (e) => {
-    
-//         let index = getIndexNumber(e);
-//         removeIndexFromLibrary(index);
-//         clearBooks();
-//         displayBooks();
-//     });
-
-//     return newButton;
-// }
-
-// function createReadButton(){
-//     const newButton = createButton("Toggle Status");
-//     newButton.addEventListener("click", (e) => {
-    
-//         let index = getIndexNumber(e);
-//         myLibrary[index].isRead = !myLibrary[index].isRead;
-//         clearBooks();
-//         displayBooks();
-//     });
-
-//     return newButton;
-// }
-
-// function removeIndexFromLibrary(index){
-//     myLibrary.splice(index, 1);
-// }
-
-
-// function getIndexNumber(e){
-//     let parent = e.target.parentElement;
-//     if(parent){
-//         return parent.dataset.indexNumber;
-//     }
-// }
-
-// function createButton(buttonType){
-//     const newButton = document.createElement("button");
-//     newButton.textContent = buttonType;
-//     newButton.setAttribute("class", "book-button");
-//     return newButton;
-// }
-
-
-
-
-
